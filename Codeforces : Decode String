@@ -1,0 +1,166 @@
+/* Decode String
+   Link : https://codeforces.com/contest/1729/problem/B
+*/
+
+#include <bits/stdc++.h>
+#include <iostream>
+#include <string>
+#include <cstdlib>
+using namespace std;
+using namespace chrono;
+ 
+template <class T> void read(T a[], int n)
+{
+	for (int i = 0; i < n; ++i)
+	{
+		cin>>a[i];
+	}
+}
+ 
+template <class T> void read(vector<T> &a, int n)
+{
+	for (int i = 0; i < n; ++i)
+	{
+		cin>>a[i];
+	}
+}
+ 
+template <class T, class U> void read(vector<pair<T,U>> &a, int n)
+{
+	for(int i = 0; i<n; i++)
+	{
+		int b,c;
+		cin>>b>>c;
+		a.push_back({b,c});
+	}
+}
+ 
+template <class T> void write(T a[], int n)
+{
+	for (int i = 0; i < n; ++i)
+	{
+		cout<<a[i]<<" ";
+	}
+	cout<<"\n";			
+}
+ 
+template<class T> void write(vector<T> &v)
+{
+	for (int i = 0; i < v.size(); ++i)
+	{
+		cout<<v[i]<<" ";
+	}
+	cout<<"\n";
+}
+ 
+template<class T, class U> void write(vector<pair<T,U>> &v)
+{
+	for (int i = 0; i < v.size(); ++i)
+	{
+		cout<<v[i].first<<" "<<v[i].second<<" ";
+		cout<<"\n";
+	}
+}
+ 
+template<class T,class U> void write(pair<T,U> &p)
+{
+	cout<<p.first<<" "<<p.second<<"\n";
+}
+ 
+vector<int> sieve(int n)
+{
+	//Time Complexity:- O(log(log(n)))
+	vector<int> is_prime(n+1, 1);
+	is_prime[0] = is_prime[1] = 0;
+	for (int i = 2; i <= n; i++) 
+	{
+	    if (is_prime[i] && 1LL*i*i <= n) 
+	    {
+	        for (int j = i*i; j<=n; j+=i)
+	            is_prime[j] = 0;
+	    }
+	}
+	return is_prime;
+}
+ 
+int64_t power(int64_t n, int64_t k, int64_t m = LLONG_MAX)
+{
+	n = n%m;
+	if(k == 0)
+		return 1;
+	int64_t res = power(n,k/2,m) % m;
+	if(k % 2 == 0)
+		return (1LL * res * res) % m;
+	else if(k % 2 != 0)
+		return (1LL * (res * res) % m * n) % m;
+}	
+ 
+vector<int64_t> FACTORIALS;
+int64_t factorialMod(int n, int m)
+{
+	int64_t p = 1;
+	FACTORIALS.push_back(p);
+	for(int i = 1; i<=n; i++)
+	{
+		p = (p * i) % m;
+		FACTORIALS.push_back(p);
+	}
+	return p;
+}
+ 
+int64_t modInverse(int n, int m)
+{
+	return (power(n,m-2,m));
+}
+ 
+int64_t nCr_mod(int n, int r, int m)
+{
+	int64_t p = (FACTORIALS[n] * modInverse(FACTORIALS[r],m)) % m * modInverse(FACTORIALS[n-r],m) % m;
+	return p;
+}
+ 
+// Functions Made During the Program
+ 
+ 
+const int M = 1e9 + 7;
+void solve()
+{	
+	string a="abcdefghijklmnopqrstuvwxyz";
+	int n;cin>>n;
+	string s;
+	cin>>s;
+	string ans;
+	int i=n;
+	while(i>=0){
+		if(s[i]=='0'){
+			string l;l.push_back(s[i-2]);l.push_back(s[i-1]);
+			ans.push_back(a[stoi(l)-1]);
+			
+			i=i-3;
+		}
+		else{
+			ans.push_back(a[(int)s[i]-'0'-1]);
+			i--;
+		}
+	}
+	reverse(ans.begin(),ans.end());
+	ans.pop_back();
+	cout<<ans;
+}
+ 
+int32_t main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	int t=1;
+	cin>>t;	
+	int t1 = t;
+	while(t--)
+	{
+		// cout<<"Case #"<<t1-t<<": ";
+		solve();
+		cout<<endl;
+	}
+	
+}
