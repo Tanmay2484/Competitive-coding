@@ -1,0 +1,50 @@
+//link: https://codeforces.com/contest/1950/problem/C
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int t;
+    cin>>t;
+    while(t--){
+        string s,ans;
+        cin>>s;
+        int temp;
+        string l="",m="";
+      for(int i=0;i<2;i++){
+          l+=s[i];
+      }
+      for(int i=2;i<5;i++){
+          m+=s[i];
+      }
+      temp=stoi(l);
+      if(temp>=0 && temp<12){
+         if(temp==0){
+             ans="12"+m;
+             cout<<ans<<" "<<"AM"<<endl;
+         }
+         else{
+             cout<<s<<" "<<"AM"<<endl;
+         }
+         
+      }
+            
+      else if(temp>=12 && temp<=23)
+      {
+          if(temp>12){
+            temp=temp-12;
+            if(temp<10){
+                ans="0";
+            }
+            ans+=to_string(temp);
+            ans+=m;
+            cout<<ans<<" "<<"PM"<<endl;
+         }
+         else{
+             ans+=to_string(temp);
+            ans+=m;
+            cout<<ans<<" "<<"PM"<<endl;
+         }
+         
+      }
+            
+    }
+}
